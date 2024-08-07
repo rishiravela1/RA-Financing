@@ -1,61 +1,126 @@
-<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Budget Tracker</title>
     <style>
+        /* Global Styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
+            background-color: #f4f6f9;
             color: #333;
+            line-height: 1.6;
         }
+
+        /* Header Styling */
         header {
-            background-color: #457fc5;
+            background-color: #005fa3;
             color: white;
             text-align: center;
-            padding: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
         }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 400;
+        }
+
+        /* Container for Main Content */
         .container {
             padding: 2rem;
             max-width: 600px;
             margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
+
+        /* Balance Display */
+        .balance {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #005fa3;
+            transition: color 0.3s ease;
+        }
+
+        /* Transaction Form Styling */
         .transaction-form {
             margin-bottom: 2rem;
         }
-        .transaction-form input, .transaction-form button {
-            padding: 0.5rem;
+
+        .transaction-form input,
+        .transaction-form button {
+            padding: 0.75rem;
             margin: 0.5rem 0;
             width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
+
+        .transaction-form input:focus,
+        .transaction-form button:focus {
+            border-color: #005fa3;
+            box-shadow: 0 0 8px rgba(0, 95, 163, 0.3);
+            outline: none;
+        }
+
+        .transaction-form button {
+            background-color: #005fa3;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .transaction-form button:hover {
+            background-color: #00407a;
+        }
+
+        /* Transactions List */
         .transactions {
             list-style-type: none;
             padding: 0;
         }
+
+        /* Individual Transaction Styles */
         .transaction {
-            background-color: white;
+            background-color: #fafafa;
             margin: 0.5rem 0;
             padding: 1rem;
             border-radius: 5px;
             display: flex;
             justify-content: space-between;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
+        .transaction:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Positive and Negative Transactions */
         .transaction.negative {
-            border-left: 5px solid #f44336;
+            border-left: 5px solid #ff4d4d;
         }
+
         .transaction.positive {
             border-left: 5px solid #4CAF50;
         }
-        .balance {
-            font-size: 1.5rem;
-            margin: 1rem 0;
-        }
     </style>
 </head>
+
 <body>
     <header>
         <h1>Budget Tracker</h1>
@@ -66,7 +131,7 @@
         </div>
         <form class="transaction-form" id="transaction-form">
             <input type="text" id="description" placeholder="Enter description" required>
-            <input type="number" id="amount" placeholder="Enter amount" required>
+            <input type="number" step="0.01" id="amount" placeholder="Enter amount" required>
             <button type="submit">Add Transaction</button>
         </form>
         <ul class="transactions" id="transactions"></ul>
@@ -74,12 +139,15 @@
     <script>
         let transactions = [];
 
+        // Function to Update Balance
         function updateBalance() {
             const balanceElement = document.getElementById('balance');
             const total = transactions.reduce((acc, transaction) => acc + transaction.amount, 0);
             balanceElement.textContent = total.toFixed(2);
+            balanceElement.style.color = total >= 0 ? '#005fa3' : '#ff4d4d';
         }
 
+        // Function to Add Transaction
         function addTransaction(e) {
             e.preventDefault();
             const description = document.getElementById('description').value;
@@ -91,6 +159,7 @@
             e.target.reset();
         }
 
+        // Function to Update Transactions List
         function updateTransactionsList() {
             const transactionsList = document.getElementById('transactions');
             transactionsList.innerHTML = '';
@@ -105,7 +174,9 @@
             });
         }
 
+        // Event Listener for Form Submission
         document.getElementById('transaction-form').addEventListener('submit', addTransaction);
     </script>
 </body>
+
 </html>
