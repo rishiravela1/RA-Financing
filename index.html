@@ -5,17 +5,122 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <style>
+        /* Global Styles */
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-color: #f4f4f4;
-        }
-        h1 {
-            font-size: 2.5em;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
             color: #333;
+            line-height: 1.6;
         }
-        button {
+
+        /* Header Styling */
+        header {
+            background-color: #005fa3;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 400;
+        }
+
+        /* Container for Main Content */
+        .container {
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Balance Display */
+        .balance {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #005fa3;
+            transition: color 0.3s ease;
+        }
+
+        /* Transaction Form Styling */
+        .transaction-form {
+            margin-bottom: 2rem;
+        }
+
+        .transaction-form input,
+        .transaction-form button {
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .transaction-form input:focus,
+        .transaction-form button:focus {
+            border-color: #005fa3;
+            box-shadow: 0 0 8px rgba(0, 95, 163, 0.3);
+            outline: none;
+        }
+
+        .transaction-form button {
+            background-color: #005fa3;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .transaction-form button:hover {
+            background-color: #00407a;
+        }
+
+        /* Transactions List */
+        .transactions {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        /* Individual Transaction Styles */
+        .transaction {
+            background-color: #fafafa;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .transaction:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Positive and Negative Transactions */
+        .transaction.negative {
+            border-left: 5px solid #ff4d4d;
+        }
+
+        .transaction.positive {
+            border-left: 5px solid #4CAF50;
+        }
+
+        /* Button Styling */
+        .home-button {
             padding: 15px 25px;
             font-size: 1.5em;
             color: #fff;
@@ -23,17 +128,24 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-        button:hover {
+
+        .home-button:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-
-    <h1>RA Finances</h1>
-    <p>Click below to open budget tracker</p>
-    <button onclick="window.location.href='budget.html'">Budget Tracker</button>
-
+    <header>
+        <h1>Home Page</h1>
+    </header>
+    <div class="container">
+        <div class="balance">
+            Welcome to My Website
+        </div>
+        <p>Click the button below to visit the Budget Tracker page.</p>
+        <button class="home-button" onclick="window.location.href='budget.html'">Go to the Budget Tracker</button>
+    </div>
 </body>
 </html>
