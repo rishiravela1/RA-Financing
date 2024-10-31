@@ -10,28 +10,53 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f6f9;
+            background-color: #f2f5fa;
             color: #333;
             line-height: 1.6;
         }
 
         /* Header Styling */
         header {
-            background-color: #005fa3;
-            color: white;
+            position: relative;
+            background-color: #003366;
+            color: #fff;
             text-align: center;
             padding: 1.5rem;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
             margin-bottom: 2rem;
         }
 
         header h1 {
             margin: 0;
-            font-size: 2rem;
-            font-weight: 400;
+            font-size: 2.5rem;
+            font-weight: 600;
         }
 
-        /* Container for Main Content */
+        /* Home Button Styling */
+        .home-button {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background-color: #fff;
+            color: #003366;
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .home-button:hover {
+            background-color: #e6e6e6;
+            color: #002244;
+        }
+
+        /* Main Container */
         .container {
             padding: 2rem;
             max-width: 600px;
@@ -47,43 +72,49 @@
             font-weight: bold;
             margin-bottom: 2rem;
             text-align: center;
-            color: #005fa3;
+            color: #003366;
             transition: color 0.3s ease;
         }
 
         /* Transaction Form Styling */
         .transaction-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
             margin-bottom: 2rem;
         }
 
         .transaction-form input,
+        .transaction-form select,
         .transaction-form button {
-            padding: 0.75rem;
-            margin: 0.5rem 0;
+            padding: 0.85rem;
             width: 100%;
-            border: 1px solid #ccc;
+            border: 1px solid #bbb;
             border-radius: 5px;
             font-size: 1rem;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .transaction-form input:focus,
+        .transaction-form select:focus,
         .transaction-form button:focus {
-            border-color: #005fa3;
-            box-shadow: 0 0 8px rgba(0, 95, 163, 0.3);
+            border-color: #003366;
+            box-shadow: 0 0 8px rgba(0, 51, 102, 0.3);
             outline: none;
         }
 
         .transaction-form button {
-            background-color: #005fa3;
+            background-color: #003366;
             color: white;
             border: none;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            font-weight: 500;
         }
 
         .transaction-form button:hover {
-            background-color: #00407a;
+            background-color: #002244;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         }
 
         /* Transactions List */
@@ -95,7 +126,7 @@
         /* Individual Transaction Styles */
         .transaction {
             background-color: #fafafa;
-            margin: 0.5rem 0;
+            margin: 0.75rem 0;
             padding: 1rem;
             border-radius: 5px;
             display: flex;
@@ -123,6 +154,7 @@
 
 <body>
     <header>
+        <a href="index.html" class="home-button">Home</a>
         <h1>Budget Tracker</h1>
     </header>
     <div class="container">
@@ -132,6 +164,10 @@
         <form class="transaction-form" id="transaction-form">
             <input type="text" id="description" placeholder="Enter description" required>
             <input type="number" step="0.01" id="amount" placeholder="Enter amount" required>
+            <select id="transaction-type">
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
             <button type="submit">Add Transaction</button>
         </form>
         <ul class="transactions" id="transactions"></ul>
@@ -144,7 +180,7 @@
             const balanceElement = document.getElementById('balance');
             const total = transactions.reduce((acc, transaction) => acc + transaction.amount, 0);
             balanceElement.textContent = total.toFixed(2);
-            balanceElement.style.color = total >= 0 ? '#005fa3' : '#ff4d4d';
+            balanceElement.style.color = total >= 0 ? '#003366' : '#ff4d4d';
         }
 
         // Function to Add Transaction
@@ -152,7 +188,12 @@
             e.preventDefault();
             const description = document.getElementById('description').value;
             const amount = parseFloat(document.getElementById('amount').value);
-            const transaction = { description, amount };
+            const type = document.getElementById('transaction-type').value;
+
+            // Adjust amount based on type
+            const transactionAmount = type === 'expense' ? -Math.abs(amount) : Math.abs(amount);
+
+            const transaction = { description, amount: transactionAmount };
             transactions.push(transaction);
             updateTransactionsList();
             updateBalance();
@@ -168,7 +209,7 @@
                 transactionElement.classList.add('transaction');
                 transactionElement.classList.add(transaction.amount < 0 ? 'negative' : 'positive');
                 transactionElement.innerHTML = `
-                    ${transaction.description} <span>$${transaction.amount.toFixed(2)}</span>
+                    ${transaction.description} <span>$${Math.abs(transaction.amount).toFixed(2)}</span>
                 `;
                 transactionsList.appendChild(transactionElement);
             });
