@@ -1,17 +1,145 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Finance Chatbot</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Chatbot</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #005fa3;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 10px 10px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-right: auto;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #ffcd00;
+        }
+
+        .navbar span {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-left: auto;
+        }
+
+        /* Chat Container Styling */
+        .chat-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        /* Chat History Styling */
+        .chat-history {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        /* User Input Styling */
+        .user-input {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .user-input input[type="text"] {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #bbb;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .user-input input[type="text"]:focus {
+            border-color: #005fa3;
+            box-shadow: 0 0 8px rgba(0, 95, 163, 0.3);
+            outline: none;
+        }
+
+        .user-input button {
+            padding: 0.75rem 1.5rem;
+            background-color: #005fa3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .user-input button:hover {
+            background-color: #00407a;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Chat Message Styles */
+        .user-message, .bot-message {
+            margin: 0.5rem 0;
+            padding: 0.75rem;
+            border-radius: 8px;
+        }
+
+        .user-message {
+            background-color: #e0f7fa;
+            text-align: right;
+            border-radius: 8px 8px 0 8px;
+        }
+
+        .bot-message {
+            background-color: #e8eaf6;
+            text-align: left;
+            border-radius: 8px 8px 8px 0;
+        }
+    </style>
 </head>
 <body>
-  <div class="chat-container">
-    <div class="chat-history"></div>
-    <div class="user-input">
-      <input type="text" id="message-input">
-      <button id="send-button">Send</button>
+    <!-- Navbar with Home Button -->
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <span>Finance Chatbot</span>
     </div>
-  </div>
 
-  <script src="script.js"></script>
+    <!-- Chat Container -->
+    <div class="chat-container">
+        <div class="chat-history" id="chat-history"></div>
+        <div class="user-input">
+            <input type="text" id="message-input" placeholder="Type a message...">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
