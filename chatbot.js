@@ -6,11 +6,12 @@ const sendButton = document.getElementById("send-button");
 // Sample responses
 const responses = {
     "hello": "Hello! How can I assist you today?",
-    "how are you": "I'm just a bot, but I'm here to help!",
+    "how are you": "I'm doing just fine, I'm here to help!",
     "what is your name": "I'm FinanceBot, your financial assistant!",
     "help": "I'm here to answer your questions. You can ask about budgeting, saving, or general finance tips!",
     "bye": "Goodbye! Have a great day!",
     "default": "I'm sorry, I didn't understand that. Can you rephrase?"
+    "what is one budgeting tip": "One tip I can give you is to track your expenses—it’s an easy way to stay on top of your budget and save for what matters most!"
 };
 
 // Function to display a message in the chat history
